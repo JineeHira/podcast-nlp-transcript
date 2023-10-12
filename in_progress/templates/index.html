@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Files</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .play-button {
+            cursor: pointer;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Files</h1>
+
+    <table>
+        <tr>
+            <th>Audio File</th>
+            <th>Play</th>
+            <th>Transcribe</th>
+        </tr>
+        {% for audio_file in audio_files %}
+        <tr>
+            <td>{{ audio_file }}</td>
+            <td><i class="play-button" data-src="{{ url_for('get_audio', filename=audio_file) }}">Play</i></td>
+            <td><a href="{{ url_for('transcribe', filename=audio_file) }}">Transcribe</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <audio controls id="audio-player">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const playButtons = document.querySelectorAll('.play-button');
+        const audioPlayer = document.getElementById('audio-player');
+
+        playButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const audioSrc = button.getAttribute('data-src');
+                audioPlayer.src = audioSrc;
+                audioPlayer.play();
+            });
+        });
+    </script>
+</body>
+</html>
+
+
