@@ -3,11 +3,12 @@ from pyannote.audio.pipelines import VoiceActivityDetection
 from pyannote.audio.pipelines import OverlappedSpeechDetection
 from pyannote.audio import Inference
 import matplotlib.pyplot as plt
+from config import token
 
 
 # instantiate pretrained model
 model = Model.from_pretrained("pyannote/segmentation",
-                              use_auth_token="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")
+                              use_auth_token=token)
 
 # voice activity detection
 pipeline = VoiceActivityDetection(segmentation=model)
